@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <script>
+        $(document).ready(function(){
+        var socket = io.connect('http://127.0.0.1:5000/test');
+        socket.on('connect',function(){
+            alert("Connected")
+        });
+        $('#button1').click(function(){
+           alert("Hi");
+           socket.emit('button_clicked',{'name':"Kavita"});
+        });
+        });
+    </script>
+</head>
+<body>
+<div id="connection">{{ message }}</div>
+<button id="button1">Click</button>
+</body>
+</html>
