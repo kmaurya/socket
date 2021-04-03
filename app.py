@@ -2,6 +2,8 @@ import socket
 from flask_socketio import SocketIO, emit, send
 from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
+from wsgiref import simple_server
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +29,16 @@ def hello():
     hi = "Hello"
     return render_template('index.html', msg=hi)
 
+#
+# if __name__ == "__main__":
+#     socket_io.run(app)
 
+
+port = int(os.getenv("PORT",5001))
 if __name__ == "__main__":
-    socket_io.run(app)
+    host = '0.0.0.0'
+    #port = 5000
+
+    httpd = simple_server.make_server(host, port, socket_io.run(app))
+    #print("Serving on %s %d" % (host, port))
+    httpd.serve_forever()
