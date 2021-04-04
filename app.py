@@ -1,4 +1,5 @@
 import socket
+
 from flask_socketio import SocketIO, emit, send
 from flask import Flask, render_template
 from flask_cors import CORS, cross_origin
@@ -13,13 +14,13 @@ socket_io = SocketIO(app, cors_allowed_origins="*")
 @socket_io.on('connect', namespace="/test")
 def printsocket():
     print("Connected")
-    # emit('connection', "Established socket connection for connect")
+    emit('connection', "Established socket connection for connect")
 
 
 @socket_io.on('button_clicked', namespace="/test")
 def buttonclicked(data):
     print(data)
-    # emit("data_found",data)
+    emit("data_found", data)
     print(data['name'])
 
 
@@ -28,6 +29,7 @@ def buttonclicked(data):
 def hello():
     hi = "Hello"
     return render_template('index.html', msg=hi)
+
 
 #
 # if __name__ == "__main__":
@@ -42,3 +44,4 @@ if __name__ == "__main__":
     httpd = simple_server.make_server(host, port, app)
     #print("Serving on %s %d" % (host, port))
     httpd.serve_forever()
+    # socket_io.run(app)
