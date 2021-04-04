@@ -15,7 +15,9 @@
            alert("Hi");
            socket.emit('button_clicked',{'name':"Kavita"});
         });
-        socket.on('data_found',function(data){alert(data);
+        socket.on('connection',function(data)
+        {
+          alert(data)
         });
         });
     </script>

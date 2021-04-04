@@ -14,7 +14,7 @@ socket_io = SocketIO(app, cors_allowed_origins="*")
 @socket_io.on('connect', namespace="/test")
 def printsocket():
     print("Connected")
-    emit('connection', "Established socket connection for connect")
+    emit('connection', {'data':"Established socket connection for connect"})
 
 
 @socket_io.on('button_clicked', namespace="/test")
@@ -36,12 +36,12 @@ def hello():
 #     socket_io.run(app)
 
 
-port = int(os.getenv("PORT",5001))
+# port = int(os.getenv("PORT",5001))
 if __name__ == "__main__":
-    host = '0.0.0.0'
-    #port = 5000
-
-    httpd = simple_server.make_server(host, port, app)
-    #print("Serving on %s %d" % (host, port))
-    httpd.serve_forever()
-    # socket_io.run(app)
+    # host = '0.0.0.0'
+    # #port = 5000
+    #
+    # httpd = simple_server.make_server(host, port, app)
+    # #print("Serving on %s %d" % (host, port))
+    # httpd.serve_forever()
+    socket_io.run(app)
