@@ -54,5 +54,5 @@ if __name__ == "__main__" and is_local_run:
     app.run()
 if __name__ == "__main__" and not is_local_run:
     host = '0.0.0.0'
-    httpd = simple_server.make_server(host, port, app)
+    httpd = simple_server.make_server(host, port, socket_io)
     httpd.serve_forever()
