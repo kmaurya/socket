@@ -35,13 +35,24 @@ def hello():
 # if __name__ == "__main__":
 #     socket_io.run(app)
 
+#
+# # port = int(os.getenv("PORT",5001))
+# if __name__ == "__main__":
+#     # host = '0.0.0.0'
+#     # #port = 5000
+#     #
+#     # httpd = simple_server.make_server(host, port, app)
+#     # #print("Serving on %s %d" % (host, port))
+#     # httpd.serve_forever()
+#     socket_io.run(app, host='0.0.0.0')
 
-# port = int(os.getenv("PORT",5001))
-if __name__ == "__main__":
-    # host = '0.0.0.0'
-    # #port = 5000
-    #
-    # httpd = simple_server.make_server(host, port, app)
-    # #print("Serving on %s %d" % (host, port))
-    # httpd.serve_forever()
-    socket_io.run(app,host='0.0.0.0')
+
+port = int(os.getenv("PORT", 5001))
+is_local_run=False
+
+if __name__ == "__main__" and is_local_run:
+    app.run()
+if __name__ == "__main__" and not is_local_run:
+    host = '0.0.0.0'
+    httpd = simple_server.make_server(host, port, socket_io.run(app))
+    httpd.serve_forever()
